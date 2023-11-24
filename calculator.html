@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Calculator</title>
+<style>
+body {
+ background-color: lightgray;
+}
+
+.container {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ grid-gap: 10px;
+ margin: 50px;
+}
+
+.display {
+ grid-column: span 4;
+ height: 100px;
+ text-align: right;
+ padding: 20px;
+ background-color: white;
+ margin-bottom: 20px;
+}
+
+button {
+ height: 100px;
+ font-size: 20px;
+ background-color: white;
+ border: 1px solid gray;
+}
+
+button:hover {
+ background-color: lightgray;
+}
+
+.operator {
+ background-color: #4CAF50;
+ color: white;
+}
+
+.operator:hover {
+ background-color: #45a049;
+}
+
+.equals {
+ grid-column: span 4;
+ background-color: #4CAF50;
+ color: white;
+}
+
+.equals:hover {
+ background-color: #45a049;
+}
+
+.clear {
+ grid-column: span 4;
+ background-color: #f44336;
+ color: white;
+}
+
+.clear:hover {
+ background-color: #e53935;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+ <div class="display" id="display">0</div>
+ <button onclick="append('1')">1</button>
+ <button onclick="append('2')">2</button>
+ <button onclick="append('3')">3</button>
+ <button onclick="append('4')">4</button>
+ <button onclick="append('5')">5</button>
+ <button onclick="append('6')">6</button>
+ <button onclick="append('7')">7</button>
+ <button onclick="append('8')">8</button>
+ <button onclick="append('9')">9</button>
+ <button onclick="append('0')">0</button>
+ <button class="operator" onclick="append('+')">+</button>
+ <button class="operator" onclick="append('-')">-</button>
+ <button class="operator" onclick="append('*')">*</button>
+ <button class="operator" onclick="append('/')">/</button>
+ <button class="equals" onclick="calculate()">=</button>
+ <button class="clear" onclick="clearDisplay()">C</button>
+</div>
+
+<script>
+let display = document.getElementById('display');
+let operation = '';
+let operand1 = 0;
+let operand2 = null;
+
+function append(value) {
+ display.textContent = display.textContent.endsWith('0') ? value : display.textContent + value;
+}
+
+function calculate() {
+ operand1 = parseFloat(display.textContent);
+ if (isNaN(operand1)) {
+    operand1 = 0;
+ }
+
+ operand2 = parseFloat(display.textContent.split(operation)[1]);
+ if (isNaN(operand2)) {
+    operand2 = 0;
+ }
+
+ switch (operation) {
+    case '+':
+      display.textContent = operand1 + operand2;
+      break;
+    case '-':
+      display.textContent = operand1 - operand2;
+      break;
+    case '*':
+      display.textContent = operand1 * operand2;
+      break;
+    case '/':
+      display.textContent = operand1 / operand2;
+      break;
+ }
+}
+
+function clearDisplay() {
+ display.textContent = '0';
+ operation = '';
+ operand1 = 0;
+ operand2 = null;
+}
+</script>
+
+</body>
+</html>
